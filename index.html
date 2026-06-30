@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Miftahul Huda — Web Portofolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  /* ============== RESET & BASE ============== */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --lemon: #f8ff45;
+    --hot-pink: #ff3da6;
+    --electric: #5bffb4;
+    --sky: #5ce1ff;
+    --sunset: #ff8b3d;
+    --deep: #16003b;
+    --plum: #2d0a5e;
+    --cream: #fffbe6;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Space Grotesk", sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+    line-height: 1.6;
+    cursor: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* ============== CUSTOM CURSOR ============== */
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--hot-pink);
+    transition: width 0.2s, height 0.2s;
+  }
+
+  .cursor-ring {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--electric);
+    transition: width 0.2s, height 0.2s, transform 0.1s;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-dot.hover {
+    width: 16px;
+    height: 16px;
+    background: var(--lemon);
+  }
+
+  .cursor-ring.hover {
+    width: 60px;
+    height: 60px;
+    background: rgba(91, 255, 180, 0.2);
+  }
+
+  /* ============== BACKGROUND FLOATING SHAPES ============== */
+  .bg-blobs {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  .blob-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--hot-pink);
+    top: -100px;
+    left: -100px;
+  }
+
+  .blob-2 {
+    width: 350px;
+    height: 350px;
+    background: var(--electric);
+    top: 30%;
+    right: -80px;
+    animation-delay: -5s;
+  }
+
+  .blob-3 {
+    width: 300px;
+    height: 300px;
+    background: var(--lemon);
+    bottom: -80px;
+    left: 30%;
+    animation-delay: -10s;
+  }
+
+  .blob-4 {
+    width: 280px;
+    height: 280px;
+    background: var(--sky);
+    bottom: 30%;
+    right: 20%;
+    animation-delay: -15s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%      { transform: translate(60px, -40px) scale(1.1); }
+    66%      { transform: translate(-50px, 50px) scale(0.95); }
+  }
+
+  /* ============== NAVBAR ============== */
+  nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(255, 251, 230, 0.8);
+    backdrop-filter: blur(12px);
+    border: 3px solid var(--deep);
+    border-radius: 100px;
+    padding: 12px 28px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    box-shadow: 6px 6px 0 var(--deep);
+  }
+
+  nav .logo {
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--hot-pink);
+  }
+
+  nav a {
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    transition: all 0.2s;
+  }
+
+  nav a:hover {
+    background: var(--lemon);
+    transform: rotate(-3deg);
+  }
+
+  /* ============== HERO ============== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 24px 60px;
+    position: relative;
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--lemon);
+    border: 3px solid var(--deep);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 20px;
+    box-shadow: 4px 4px 0 var(--deep);
+    transform: rotate(-2deg);
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 88px);
+    line-height: 0.95;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 .outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--deep);
+  }
+
+  .hero h1 .wave {
+    display: inline-block;
+    animation: wave 2s infinite;
+    transform-origin: 70% 70%;
+  }
+
+  @keyframes wave {
+    0%, 60%, 100% { transform: rotate(0deg); }
+    10%, 30%      { transform: rotate(14deg); }
+    20%           { transform: rotate(-8deg); }
+    40%           { transform: rotate(-4deg); }
+  }
+
+  .hero p {
+    font-size: 18px;
+    max-width: 480px;
+    margin-bottom: 28px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    border: 3px solid var(--deep);
+    border-radius: 100px;
+    padding: 14px 26px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: none;
+    transition: all 0.2s;
+    box-shadow: 5px 5px 0 var(--deep);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--cream);
+  }
+
+  .btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 var(--deep);
+  }
+
+  .btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--deep);
+  }
+
+  .btn.primary {
+    background: var(--hot-pink);
+    color: var(--cream);
+  }
+
+  .btn.electric {
+    background: var(--electric);
+  }
+
+  /* hero portrait */
+  .hero-portrait {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .portrait-frame {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--hot-pink), var(--sunset), var(--lemon));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 6px solid var(--deep);
+    box-shadow: 10px 10px 0 var(--deep);
+    overflow: hidden;
+    position: relative;
+    animation: morph 8s ease-in-out infinite;
+  }
+
+  @keyframes morph {
+    0%, 100% { border-radius: 50%; }
+    50%      { border-radius: 40% 60% 60% 40% / 50% 40% 60% 50%; }
+  }
+
+  .portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .portrait-frame .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--plum);
+    color: var(--cream);
+    font-size: 100px;
+  }
+
+  .sticker {
+    position: absolute;
+    background: var(--lemon);
+    border: 3px solid var(--deep);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-weight: 700;
+    box-shadow: 4px 4px 0 var(--deep);
+    animation: wiggle 3s ease-in-out infinite;
+  }
+
+  .sticker-1 {
+    top: 10%;
+    left: -20px;
+    background: var(--electric);
+    transform: rotate(-8deg);
+  }
+
+  .sticker-2 {
+    bottom: 15%;
+    right: -10px;
+    background: var(--sky);
+    transform: rotate(6deg);
+    animation-delay: -1s;
+  }
+
+  .sticker-3 {
+    top: 60%;
+    left: -30px;
+    background: var(--sunset);
+    color: var(--cream);
+    transform: rotate(-4deg);
+    animation-delay: -2s;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-8deg) translateY(0); }
+    50%      { transform: rotate(-8deg) translateY(-8px); }
+  }
+
+  /* ============== SECTIONS ============== */
+  section {
+    padding: 100px 24px;
+    position: relative;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .section-title::before {
+    content: "";
+    position: absolute;
+    bottom: 6px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: var(--lemon);
+    z-index: -1;
+    transform: skew(-10deg);
+  }
+
+  .section-sub {
+    font-size: 18px;
+    margin-bottom: 50px;
+    opacity: 0.8;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ============== ABOUT ============== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+  }
+
+  .about-text p {
+    margin-bottom: 16px;
+    font-size: 17px;
+  }
+
+  .about-text strong {
+    background: var(--lemon);
+    padding: 0 6px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .stat-card {
+    border: 3px solid var(--deep);
+    border-radius: 18px;
+    padding: 22px;
+    background: var(--cream);
+    box-shadow: 5px 5px 0 var(--deep);
+    transition: all 0.2s;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+
+  .stat-card:nth-child(2) { background: var(--electric); }
+  .stat-card:nth-child(3) { background: var(--hot-pink); color: var(--cream); }
+  .stat-card:nth-child(4) { background: var(--sky); }
+
+  .stat-num {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  /* ============== FUN MARQUEE ============== */
+  .marquee {
+    background: var(--deep);
+    color: var(--cream);
+    padding: 18px 0;
+    overflow: hidden;
+    border-top: 4px solid var(--deep);
+    border-bottom: 4px solid var(--deep);
+    transform: rotate(-2deg);
+    margin: 40px 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 40px;
+    animation: scroll 20s linear infinite;
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 24px;
+    font-family: "Fira Code", monospace;
+  }
+
+  .marquee-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .marquee-track .star {
+    color: var(--lemon);
+  }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ============== SKILLS ============== */
+  .skills-wrap {
+    background: var(--plum);
+    color: var(--cream);
+    border-radius: 24px;
+    padding: 60px 40px;
+    border: 4px solid var(--deep);
+    box-shadow: 10px 10px 0 var(--lemon);
+  }
+
+  .skills-wrap .section-title {
+    color: var(--cream);
+  }
+
+  .skills-wrap .section-title::before {
+    background: var(--hot-pink);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin-top: 30px;
+  }
+
+  .skill-card {
+    background: var(--cream);
+    color: var(--deep);
+    border: 3px solid var(--cream);
+    border-radius: 14px;
+    padding: 22px 14px;
+    text-align: center;
+    transition: all 0.25s;
+    cursor: none;
+  }
+
+  .skill-card:hover {
+    background: var(--lemon);
+    transform: rotate(-3deg) scale(1.05);
+  }
+
+  .skill-card i {
+    font-size: 38px;
+    margin-bottom: 10px;
+    color: var(--hot-pink);
+  }
+
+  .skill-card:hover i {
+    color: var(--deep);
+  }
+
+  .skill-card .skill-name {
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .skill-card .skill-bar {
+    height: 6px;
+    background: rgba(22, 0, 59, 0.15);
+    border-radius: 100px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+
+  .skill-card .skill-fill {
+    height: 100%;
+    background: var(--hot-pink);
+    width: 0;
+    border-radius: 100px;
+    transition: width 1.4s ease-out;
+  }
+
+  /* ============== PROJECTS ============== */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+  }
+
+  .project-card {
+    border: 4px solid var(--deep);
+    border-radius: 22px;
+    background: var(--cream);
+    box-shadow: 8px 8px 0 var(--deep);
+    overflow: hidden;
+    transition: all 0.25s;
+    position: relative;
+  }
+
+  .project-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0 var(--deep);
+  }
+
+  .project-thumb {
+    height: 180px;
+    overflow: hidden;
+    border-bottom: 4px solid var(--deep);
+    position: relative;
+  }
+
+  .project-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+
+  .project-card:hover .project-thumb img {
+    transform: scale(1.08);
+  }
+
+  .project-body {
+    padding: 22px;
+  }
+
+  .project-tag {
+    display: inline-block;
+    background: var(--electric);
+    border: 2px solid var(--deep);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 6px;
+    margin-bottom: 8px;
+  }
+
+  .project-body h3 {
+    font-size: 22px;
+    margin: 6px 0 8px;
+  }
+
+  .project-body p {
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 10px;
+  }
+
+  .project-links a {
+    padding: 8px 14px;
+    border: 2px solid var(--deep);
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 13px;
+    background: var(--lemon);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-links a:hover {
+    background: var(--hot-pink);
+    color: var(--cream);
+  }
+
+  /* ============== FUN SECTION ============== */
+  .fun-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  .fun-card {
+    border: 4px solid var(--deep);
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 8px 8px 0 var(--deep);
+  }
+
+  .fun-card h3 {
+    font-size: 24px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .fun-card-1 {
+    background: var(--lemon);
+  }
+
+  .fun-card-2 {
+    background: var(--sky);
+  }
+
+  .easter-egg {
+    background: var(--deep);
+    color: var(--cream);
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    font-family: "Fira Code", monospace;
+    margin-top: 16px;
+    user-select: none;
+  }
+
+  .joke-btn {
+    margin-top: 14px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .quiz-area {
+    text-align: center;
+  }
+
+  .quiz-question {
+    font-size: 18px;
+    margin-bottom: 16px;
+    min-height: 60px;
+  }
+
+  .quiz-options {
+    display: grid;
+    gap: 10px;
+  }
+
+  .quiz-option {
+    padding: 12px;
+    border: 3px solid var(--deep);
+    border-radius: 12px;
+    background: var(--cream);
+    font-weight: 700;
+    cursor: none;
+    transition: all 0.2s;
+  }
+
+  .quiz-option:hover {
+    background: var(--electric);
+    transform: translateX(6px);
+  }
+
+  .quiz-option.correct {
+    background: var(--electric);
+    animation: bounce 0.5s;
+  }
+
+  .quiz-option.wrong {
+    background: var(--hot-pink);
+    color: var(--cream);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.1); }
+  }
+
+  /* ============== CONTACT ============== */
+  .contact-wrap {
+    background: linear-gradient(135deg, var(--hot-pink), var(--sunset));
+    border-radius: 30px;
+    padding: 60px 40px;
+    border: 4px solid var(--deep);
+    box-shadow: 10px 10px 0 var(--deep);
+    color: var(--cream);
+    text-align: center;
+  }
+
+  .contact-wrap h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    margin-bottom: 14px;
+  }
+
+  .contact-wrap p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-form {
+    max-width: 540px;
+    margin: 0 auto;
+    display: grid;
+    gap: 14px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    border: 3px solid var(--deep);
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-family: inherit;
+    font-size: 16px;
+    background: var(--cream);
+    color: var(--deep);
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    background: var(--lemon);
+    transform: scale(1.02);
+  }
+
+  .contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .contact-form button {
+    justify-content: center;
+  }
+
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+
+  .socials a {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--deep);
+    border-radius: 50%;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--deep);
+    transition: all 0.2s;
+    box-shadow: 4px 4px 0 var(--deep);
+  }
+
+  .socials a:hover {
+    background: var(--lemon);
+    transform: translate(-3px, -3px) rotate(-10deg);
+    box-shadow: 7px 7px 0 var(--deep);
+  }
+
+  /* ============== FOOTER ============== */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    font-family: "Fira Code", monospace;
+    font-size: 14px;
+    color: var(--deep);
+  }
+
+  footer span {
+    color: var(--hot-pink);
+    font-weight: 700;
+  }
+
+  /* ============== TOAST ============== */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--deep);
+    color: var(--lemon);
+    padding: 14px 22px;
+    border-radius: 14px;
+    border: 3px solid var(--lemon);
+    box-shadow: 5px 5px 0 var(--hot-pink);
+    font-weight: 700;
+    font-family: "Fira Code", monospace;
+    transform: translateY(150%);
+    transition: transform 0.4s;
+    z-index: 1000;
+  }
+
+  .toast.show {
+    transform: translateY(0);
+  }
+
+  /* ============== SCROLL REVEAL ============== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s, transform 0.8s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============== RESPONSIVE ============== */
+  @media (max-width: 800px) {
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+    .btn, .quiz-option, .skill-card { cursor: pointer; }
+
+    nav { padding: 10px 14px; gap: 8px; }
+    nav a { display: none; }
+    nav .logo { display: inline; }
+
+    .hero-inner,
+    .about-grid,
+    .fun-wrap {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .portrait-frame { width: 240px; height: 240px; }
+
+    .sticker-1 { left: 0; }
+    .sticker-3 { left: 0; }
+
+    section { padding: 70px 20px; }
+    .skills-wrap, .contact-wrap { padding: 40px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- custom cursor -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- floating background -->
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+</div>
+
+<!-- navbar -->
+<nav>
+  <div class="logo">mh.</div>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#fun">Fun</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-tag">Halo, saya Miftah — siap bikin web yang hidup</span>
+      <h1>
+        Web dev yang<br>
+        <span class="outline">suka ngulik</span>
+        dan<br>
+        <span class="wave">kopi</span> nya juga kuat.
+      </h1>
+      <p>
+        Saya bikin website interaktif yang gak ngebosenin. Warna ngejreng,
+        animasi ngalir, dan bug? ya wajar, namanya juga karya.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn primary">
+          <i class="fa-solid fa-rocket"></i> Lihat Karya
+        </a>
+        <a href="#contact" class="btn electric">
+          <i class="fa-solid fa-paper-plane"></i> Ngobrol Yuk
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-portrait">
+      <div class="portrait-frame">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Miftah&backgroundColor=ff8b3d,ff3da6&radius=50"
+             alt="Avatar Miftah"
+             onerror="this.outerHTML='<div class=\'placeholder\'><i class=\'fa-solid fa-user-astronaut\'></i></div>'" />
+      </div>
+      <div class="sticker sticker-1">100+ commit</div>
+      <div class="sticker sticker-2">Open to Work</div>
+      <div class="sticker sticker-3">vibes++</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span><i class="fa-solid fa-star star"></i> WEB DEV</span>
+    <span><i class="fa-solid fa-bolt star"></i> INTERAKTIF</span>
+    <span><i class="fa-solid fa-mug-hot star"></i> KOPI LUR</span>
+    <span><i class="fa-solid fa-code star"></i> CLEAN CODE</span>
+    <span><i class="fa-solid fa-wand-magic-sparkles star"></i> ANIMASI KEREN</span>
+    <span><i class="fa-solid fa-star star"></i> WEB DEV</span>
+    <span><i class="fa-solid fa-bolt star"></i> INTERAKTIF</span>
+    <span><i class="fa-solid fa-mug-hot star"></i> KOPI LUR</span>
+    <span><i class="fa-solid fa-code star"></i> CLEAN CODE</span>
+    <span><i class="fa-solid fa-wand-magic-sparkles star"></i> ANIMASI KEREN</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <span class="section-title reveal">Tentang Saya</span>
+    <p class="section-sub reveal">Orang di balik layar, ngopi sambil ngoding.</p>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          Halo! Saya <strong>Miftahul Huda</strong>, web developer yang kebetulan
+          jatuh cinta sama warna-warna mencolok dan animasi yang bikin mata seger.
+        </p>
+        <p>
+          Kalau web saya boleh ngomong, mereka akan bilang: <em>"Bang, kenapa
+          banyak animasi?"</em> — karena web yang diam itu bukan web, itu
+          batu nisan.
+        </p>
+        <p>
+          Saya fokus ke <strong>frontend interaktif</strong>, tapi gak tutup mata
+          sama backend. Punya saya ini bukan cuma portofolio, ini juga
+          playground eksperimen.
+        </p>
+      </div>
+
+      <div class="stats reveal">
+        <div class="stat-card">
+          <div class="stat-num" data-target="42">0</div>
+          <div class="stat-label">Proyek Selesai</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="7">0</div>
+          <div class="stat-label">Tahun Ngoding</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="999">0</div>
+          <div class="stat-label">Cangkir Kopi</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="3">0</div>
+          <div class="stat-label">Bug Teman Setia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="skills-wrap reveal">
+      <span class="section-title">Skill Stack</span>
+      <p class="section-sub">Yang sering saya pakai dan pelihara tiap hari.</p>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <i class="fa-brands fa-html5"></i>
+          <div class="skill-name">HTML5</div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="95"></div></div>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-css3-alt"></i>
+          <div class="skill-name">CSS3</div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="92"></div></div>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-js"></i>
+          <div class="skill-name">JavaScript</div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="88"></div></div>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-react"></i>
+          <div class="skill-name">React</div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="80"></div></div>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-node-js"></i>
+          <div class="skill-name">Node.js</div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="75"></div></div>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-tailwind"></i>
+          <div class="skill-name">Tailwind</div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="85"></div></div>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-figma"></i>
+          <div class="skill-name">Figma</div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="70"></div></div>
+        </div>
+        <div class="skill-card">
+          <i class="fa-brands fa-git-alt"></i>
+          <div class="skill-name">Git</div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="90"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <span class="section-title reveal">Proyek Pilihan</span>
+    <p class="section-sub reveal">Beberapa karya yang (katanya) menarik.</p>
+
+    <div class="projects-grid">
+      <article class="project-card reveal">
+        <div class="project-thumb">
+          <img src="https://picsum.photos/seed/neon-dash/600/400" alt="Neon Dashboard" />
+        </div>
+        <div class="project-body">
+          <span class="project-tag">React</span>
+          <span class="project-tag">Charts</span>
+          <h3>Neon Dashboard</h3>
+          <p>Dashboard analitik warna ngejreng, real-time chart, dan dark mode yang beneran gelap.</p>
+          <div class="project-links">
+            <a href="#"><i class="fa-solid fa-eye"></i> Preview</a>
+            <a href="#"><i class="fa-brands fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card reveal">
+        <div class="project-thumb">
+          <img src="https://picsum.photos/seed/todo-matic/600/400" alt="Todo App" />
+        </div>
+        <div class="project-body">
+          <span class="project-tag">Vanilla JS</span>
+          <span class="project-tag">LocalStorage</span>
+          <h3>Todo-Matic 9000</h3>
+          <p>Aplikasi to-do list yang ngerasa punya kepribadian, lengkap sama sarkas dan motivasi.</p>
+          <div class="project-links">
+            <a href="#"><i class="fa-solid fa-eye"></i> Preview</a>
+            <a href="#"><i class="fa-brands fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card reveal">
+        <div class="project-thumb">
+          <img src="https://picsum.photos/seed/retro-game/600/400" alt="Retro Game" />
+        </div>
+        <div class="project-body">
+          <span class="project-tag">Canvas</span>
+          <span class="project-tag">Game</span>
+          <h3>Pixel Catcher</h3>
+          <p>Game mini 8-bit yang menangkap piksel. Leaderboard lokal, musik chiptune opsional.</p>
+          <div class="project-links">
+            <a href="#"><i class="fa-solid fa-gamepad"></i> Main</a>
+            <a href="#"><i class="fa-brands fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card reveal">
+        <div class="project-thumb">
+          <img src="https://picsum.photos/seed/anim-land/600/400" alt="Animation Land" />
+        </div>
+        <div class="project-body">
+          <span class="project-tag">GSAP</span>
+          <span class="project-tag">Web Anim</span>
+          <h3>Animation Land</h3>
+          <p>Showcase 30+ animasi CSS/JS yang siap di-copy paste ke proyekmu. Gratis, tanpa nanya.</p>
+          <div class="project-links">
+            <a href="#"><i class="fa-solid fa-eye"></i> Preview</a>
+            <a href="#"><i class="fa-brands fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FUN SECTION -->
+<section id="fun">
+  <div class="container">
+    <span class="section-title reveal">Bagian Seru-Seru</span>
+    <p class="section-sub reveal">Karena portofolio yang kaku itu menyebalkan.</p>
+
+    <div class="fun-wrap">
+      <!-- Lelucon -->
+      <div class="fun-card fun-card-1 reveal">
+        <h3><i class="fa-solid fa-face-laugh-squint"></i> Generator Lelucon Dev</h3>
+        <p>Klik tombol, dapet lelucon. Kualitas? jangan harap.</p>
+        <div class="easter-egg" id="jokeBox">
+          Tekan tombol di bawah, saya kasih yang terbaik dari stok terbatas.
+        </div>
+        <button class="btn primary joke-btn" id="jokeBtn">
+          <i class="fa-solid fa-dice"></i> Kasih Lelucon
+        </button>
+      </div>
+
+      <!-- Kuis -->
+      <div class="fun-card fun-card-2 reveal">
+        <h3><i class="fa-solid fa-brain"></i> Kuis Receh</h3>
+        <div class="quiz-area">
+          <div class="quiz-question" id="quizQ">Pertanyaan muncul di sini.</div>
+          <div class="quiz-options" id="quizOpts"></div>
+          <p style="margin-top:14px; font-size:13px; font-family:'Fira Code', monospace;">
+            Skor: <span id="quizScore">0</span> / <span id="quizTotal">0</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap reveal">
+      <h2>Ayo Kolaborasi</h2>
+      <p>
+        Punya ide gila? Proyek yang bikin pusing? Atau mau bilang "hai"?
+        Kirim aja, saya balas (kalau bangun).
+      </p>
+      <form class="contact-form" id="contactForm">
+        <input type="text" id="name" placeholder="Nama kamu" required />
+        <input type="email" id="email" placeholder="Email aktif" required />
+        <textarea id="message" placeholder="Cerita singkat..." required></textarea>
+        <button type="submit" class="btn">
+          <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
+        </button>
+      </form>
+
+      <div class="socials">
+        <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Dibuat dengan <span>kopi</span>, <span>kode</span>, dan sedikit <span>keberanian</span>.</p>
+  <p>© 2026 Miftahul Huda — Semua bug adalah fitur.</p>
+</footer>
+
+<div class="toast" id="toast">Notifikasi muncul di sini</div>
+
+<script>
+/* =========================================================
+   1. CUSTOM CURSOR
+   ========================================================= */
+const dot = document.querySelector('.cursor-dot');
+const ring = document.querySelector('.cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX;
+  my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.18;
+  ry += (my - ry) * 0.18;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .skill-card, .quiz-option, .btn, .sticker')
+  .forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.classList.add('hover');
+      ring.classList.add('hover');
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.classList.remove('hover');
+      ring.classList.remove('hover');
+    });
+  });
+
+/* =========================================================
+   2. SCROLL REVEAL
+   ========================================================= */
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.classList.add('visible');
+      io.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => io.observe(el));
+
+/* =========================================================
+   3. ANIMATED STAT COUNTER
+   ========================================================= */
+const counters = document.querySelectorAll('.stat-num');
+const counterIO = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      const el = en.target;
+      const target = parseInt(el.dataset.target, 10);
+      let current = 0;
+      const step = Math.max(1, Math.ceil(target / 60));
+      const tick = () => {
+        current += step;
+        if (current >= target) {
+          el.textContent = target + '+';
+        } else {
+          el.textContent = current;
+          requestAnimationFrame(tick);
+        }
+      };
+      tick();
+      counterIO.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => counterIO.observe(c));
+
+/* =========================================================
+   4. SKILL BAR ANIMATION
+   ========================================================= */
+const fills = document.querySelectorAll('.skill-fill');
+const fillIO = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      const el = en.target;
+      el.style.width = el.dataset.fill + '%';
+      fillIO.unobserve(el);
+    }
+  });
+}, { threshold: 0.3 });
+fills.forEach(f => fillIO.observe(f));
+
+/* =========================================================
+   5. TOAST
+   ========================================================= */
+const toast = document.getElementById('toast');
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(window.__toastT);
+  window.__toastT = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
+/* =========================================================
+   6. NAVBAR AUTO-HIDE ON SCROLL DOWN
+   ========================================================= */
+let lastY = 0;
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y > lastY && y > 100) navEl.style.transform = 'translateX(-50%) translateY(-150%)';
+  else navEl.style.transform = 'translateX(-50%) translateY(0)';
+  lastY = y;
+});
+
+/* =========================================================
+   7. JOKE GENERATOR
+   ========================================================= */
+const jokes = [
+  "Kenapa programmer suka gelap? Karena di cahaya, bug-nya keliatan jelas.",
+  "Saya punya pacar, tapi cuma versi production. Di localhost masih single.",
+  "CSS itu kayak pacar: kalau align-items center aja masih gak jalan, ya udah di-flex aja.",
+  "JavaScript naik level: dulu 'undefined', sekarang 'still undefined'.",
+  "git commit -m 'fix' lalu push. Rekan kerja: 'fix apa?' saya: 'ya itu tadi.'",
+  "Saya bukan malas, saya cuma di mode energy saving. Kayak laptop.",
+  "Tidur itu penting. Tapi debugging jam 3 pagi lebih penting.",
+  "Pacaran itu kayak rekursi: kalau gak ada base case, ya stack overflow.",
+  "Dokter: 'kurang tidur ya?' Saya: 'bukan dok, kurang semicolon.'",
+  "Semicolon itu kayak aturan pakai sabuk pengaman: keliatan sepele, tapi kalau lupa, njeblak."
+];
+const jokeBtn = document.getElementById('jokeBtn');
+const jokeBox = document.getElementById('jokeBox');
+jokeBtn.addEventListener('click', () => {
+  jokeBox.textContent = jokes[Math.floor(Math.random() * jokes.length)];
+  showToast('Lelucon terkirim!');
+});
+
+/* =========================================================
+   8. QUIZ
+   ========================================================= */
+const quizData = [
+  { q: "Bahasa pemrograman yang dipakai untuk styling halaman web?", a: ["JavaScript", "CSS", "Python"], correct: 1 },
+  { q: "Fungsi CSS mana yang bikin elemen bulat sempurna?", a: ["border-circle: 50%", "border-radius: 50%", "round: true"], correct: 1 },
+  { q: "Tag HTML untuk gambar?", a: ["<img>", "<image>", "<pic>"], correct: 0 },
+  { q: "Mana yang bukan framework JavaScript?", a: ["React", "Laravel", "Vue"], correct: 1 },
+  { q: "CSS singkatan dari?", a: ["Computer Style Sheet", "Cascading Style Sheet", "Creative Styling Syntax"], correct: 1 },
+  { q: "Apa kepanjangan API?", a: ["Application Programming Interface", "Apple Pie Inside", "Advanced Pixel Index"], correct: 0 },
+  { q: "Command git untuk simpan perubahan lokal?", a: ["git push", "git commit", "git save"], correct: 1 },
+];
+let quizIdx = 0;
+let quizScore = 0;
+const quizQ = document.getElementById('quizQ');
+const quizOpts = document.getElementById('quizOpts');
+const quizScoreEl = document.getElementById('quizScore');
+const quizTotalEl = document.getElementById('quizTotal');
+
+function loadQuiz() {
+  if (quizIdx >= quizData.length) {
+    quizQ.textContent = `Selesai! Skor kamu ${quizScore} / ${quizData.length}`;
+    quizOpts.innerHTML = '<button class="btn primary" id="quizRestart"><i class="fa-solid fa-rotate-right"></i> Main Lagi</button>';
+    document.getElementById('quizRestart').addEventListener('click', () => {
+      quizIdx = 0;
+      quizScore = 0;
+      quizScoreEl.textContent = 0;
+      quizTotalEl.textContent = 0;
+      loadQuiz();
+    });
+    return;
+  }
+  quizTotalEl.textContent = quizData.length;
+  const data = quizData[quizIdx];
+  quizQ.textContent = `${quizIdx + 1}. ${data.q}`;
+  quizOpts.innerHTML = '';
+  data.a.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => handleQuiz(btn, i, data.correct));
+    quizOpts.appendChild(btn);
+  });
+}
+
+function handleQuiz(btn, picked, correct) {
+  const all = quizOpts.querySelectorAll('.quiz-option');
+  all.forEach(b => b.disabled = true);
+  if (picked === correct) {
+    btn.classList.add('correct');
+    quizScore++;
+    quizScoreEl.textContent = quizScore;
+    showToast('Bener! Mantap.');
+  } else {
+    btn.classList.add('wrong');
+    all[correct].classList.add('correct');
+    showToast('Yaaah, salah. Tapi gak apa.');
+  }
+  setTimeout(() => {
+    quizIdx++;
+    loadQuiz();
+  }, 1200);
+}
+loadQuiz();
+
+/* =========================================================
+   9. CONTACT FORM
+   ========================================================= */
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  if (!name) return;
+  showToast(`Makasih ${name}! Pesanmu terkirim (secara fiksi).`);
+  e.target.reset();
+});
+
+/* =========================================================
+   10. EASTER EGG — KLIK LOGO 5x
+   ========================================================= */
+let logoClicks = 0;
+document.querySelector('.logo').addEventListener('click', () => {
+  logoClicks++;
+  if (logoClicks === 5) {
+    showToast('Easter egg: kamu telaten juga ya.');
+    document.body.style.animation = 'wiggle 0.5s 3';
+    setTimeout(() => document.body.style.animation = '', 1500);
+    logoClicks = 0;
+  }
+});
+
+/* =========================================================
+   11. RANDOM FUN: KONFETI KETIKA KLIK JUDUL
+   ========================================================= */
+function confettiBurst(x, y) {
+  const colors = ['#ff3da6', '#5bffb4', '#5ce1ff', '#f8ff45', '#ff8b3d'];
+  for (let i = 0; i < 30; i++) {
+    const piece = document.createElement('div');
+    piece.style.cssText = `
+      position: fixed;
+      left: ${x}px;
+      top: ${y}px;
+      width: 10px;
+      height: 10px;
+      background: ${colors[i % colors.length]};
+      z-index: 9998;
+      pointer-events: none;
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      transition: transform 1s ease-out, opacity 1s;
+    `;
+    document.body.appendChild(piece);
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 80 + Math.random() * 120;
+    requestAnimationFrame(() => {
+      piece.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${Math.random() * 720}deg)`;
+      piece.style.opacity = '0';
+    });
+    setTimeout(() => piece.remove(), 1100);
+  }
+}
+
+document.querySelectorAll('.section-title').forEach(t => {
+  t.style.cursor = 'none';
+  t.addEventListener('click', e => {
+    const r = t.getBoundingClientRect();
+    confettiBurst(r.left + r.width / 2, r.top + r.height / 2);
+  });
+});
+
+/* =========================================================
+   12. WELCOME TOAST
+   ========================================================= */
+setTimeout(() => showToast('Selamat datang di web penuh warna!'), 800);
+</script>
+
+</body>
+</html>
